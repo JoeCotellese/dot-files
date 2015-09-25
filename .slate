@@ -1,0 +1,102 @@
+
+# Configs
+config defaultToCurrentScreen true
+config secondsBetweenRepeat 0.1
+config checkDefaultsOnLoad true
+config focusCheckWidthMax 3000
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+#config windowHintsDuration 5
+config windowHintsSpread true
+#config windowHintsOrder persist
+
+# Aliases for monitors
+alias mon-tb  2560x1440
+alias mon-mbp 2880x1800
+alias mon-ipad 2048x1536
+ 
+alias mon-main 1
+alias mon-aux 0
+
+
+# put up a Divvy style grid
+bind pad* grid padding:5 0:6,2 1:8,3
+
+# Let's check out Slate's switcher
+#bind tab:cmd switch
+
+# HYPER keybinding
+alias hyper ctrl;alt;cmd
+
+# Setup Abstract positions to stick things in big quadrants on my screen
+
+# Abstract positions
+alias full move screenOriginX;screenOriginY screenSizeX;screenSizeY
+alias lefthalf move screenOriginX;screenOriginY screenSizeX/2;screenSizeY
+alias righthalf move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY
+alias topleft corner top-left resize:screenSizeX/2;screenSizeY/2
+alias topleft-sm corner top-left resize:screenSizeX/4;screenSizeY/2
+alias topright corner top-right resize:screenSizeX/2;screenSizeY/2
+alias topright-sm corner top-right resize:screenSizeX/4;screenSizeY/2
+alias bottomleft corner bottom-left resize:screenSizeX/2;screenSizeY/2
+alias bottomleft-sm corner bottom-left resize:screenSizeX/4;screenSizeY/2
+alias bottomright corner bottom-right resize:screenSizeX/2;screenSizeY/2
+alias bottomright-sm corner bottom-right resize:screenSizeX/4;screenSizeY/2
+alias centered move screenOriginX+(screenSizeX/4);screenOriginY screenSizeX/2;screenSizeY
+
+
+#Bind those positions to the nd pad1 ${bottomleft}
+bind m:${hyper} chain ${bottomleft} | ${bottomleft-sm}
+bind ,:${hyper} push bottom bar-resize:screenSizeY/2
+bind .:${hyper} chain ${bottomright} | ${bottomright-sm}
+bind j:${hyper} ${lefthalf}
+bind k:${hyper} chain ${centered} | ${full}
+bind l:${hyper} ${righthalf}
+bind u:${hyper} chain ${topleft} | ${topleft-sm}
+bind i:${hyper} push top bar-resize:screenSizeY/2
+bind o:${hyper} chain ${topright} | ${topright-sm}
+
+#Help me focus by only hiding everything but the window I'm currently working in
+bind 0:${hyper} hide all-but:current
+bind -:${hyper} hide all
+
+# Throw a window around
+bind n:${hyper} throw next
+bind right:${hyper} throw right
+bind left:${hyper}  throw left
+
+# make it easy to relaunch app if I'm messing with config
+bind r:${hyper} relaunch
+
+bind space:${hyper} hint ASDFGHJKLQWERTYUIOPCVBN
+
+# Layouts
+# 2 Mon - TB
+layout 2mon 'HipChat' ${bottomright} 0
+layout 2mon 'Mail' ${topright} 0
+layout 2mon 'Safari' ${lefthalf} 0
+layout 2mon 'Google Chrome' ${lefthalf} 0
+# 2 Mon - MBP
+layout 2mon 'iTunes' ${bottomright}  1
+layout 2mon 'Fantastical' ${lefthalf}  1
+layout 2mon 'OmniFocus' ${righthalf} 1
+layout 2mon 'Twitter' ${righthalf} 1
+
+layout 1mon 'OmniFocus' ${full}
+layout 1mon 'Google Chrome' ${topleft}
+
+layout 3mon 'Fantastical 2' ${full} 0
+layout 3mon 'HipChat' ${bottomright} 1
+layout 3mon 'OmniFocus' ${full} 2
+layout 3mon 'Hangouts':REPEAT ${full} 2
+
+bind 1:${hyper} layout 1mon
+bind 2:${hyper} layout 2mon
+bind 3:${hyper} layout 3mon
+
+default 2mon count:2 #resolutions:${mon-tb};${mon-mbp}
+default 1mon count:1 #resolutions:${mon-tb};${mon-mbp}
+
+#rare but I could be using Duet
+default 3mon resolutions:${mon-tb};${mon-mbp};{mon-ipad}
+
