@@ -1,2 +1,4 @@
 /.atom/.apm/.apmrc
 /.atom/compile-cache
+
+/.atom/storage/
