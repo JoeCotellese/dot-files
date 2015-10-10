@@ -5,10 +5,12 @@
     showOnStartup: false
   core:
     themes: [
-      "one-dark-ui"
-      "pen-paper-coffee-syntax"
+      "atom-light-ui"
+      "atom-light-syntax"
     ]
   editor:
     invisibles: {}
+    fontSize: 20
   nvatom:
     directory: "~/Dropbox/text"
+  Zen: {}
