@@ -22,6 +22,6 @@ hs.hotkey.bind(hyper, "g", full)
 
 -- lock the screen ala Windows NT
 hs.hotkey.bind(hyper,"delete", function()
+  hs.caffeinate.lockScreen()
   hs.alert.show("startScreensaver")
-  hs.caffeinate.startScreensaver()
 end)
