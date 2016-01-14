@@ -49,9 +49,9 @@ alias centered move screenOriginX+(screenSizeX/4);screenOriginY screenSizeX/2;sc
 bind m:${hyper} chain ${bottomleft} | ${bottomleft-sm}
 bind ,:${hyper} push bottom bar-resize:screenSizeY/2
 bind .:${hyper} chain ${bottomright} | ${bottomright-sm}
-bind j:${hyper} ${lefthalf}
-bind k:${hyper} chain ${centered} | ${full}
-bind l:${hyper} ${righthalf}
+# bind j:${hyper} ${lefthalf}
+# bind k:${hyper} chain ${centered} | ${full}
+# bind l:${hyper} ${righthalf}
 bind u:${hyper} chain ${topleft} | ${topleft-sm}
 bind i:${hyper} push top bar-resize:screenSizeY/2
 bind o:${hyper} chain ${topright} | ${topright-sm}
@@ -99,4 +99,3 @@ default 1mon count:1 #resolutions:${mon-tb};${mon-mbp}
 
 #rare but I could be using Duet
 default 3mon resolutions:${mon-tb};${mon-mbp};{mon-ipad}
-
