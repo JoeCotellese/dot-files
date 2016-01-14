@@ -30,8 +30,8 @@ local grid = {
   bottomRight = '6,6 6x6',
   bottomLeft = '0,6 6x6',
   fullScreen = '0,0 12x12',
-  centeredBig = '3,3 6x6',
-  centeredSmall = '4,4 4x4',
+  centeredBig = '3,0 6x12',
+  centeredSmall = '3,3 6x6',
 }
 
 local lastSeenChain = nil
