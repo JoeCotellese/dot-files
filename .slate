@@ -46,19 +46,19 @@ alias centered move screenOriginX+(screenSizeX/4);screenOriginY screenSizeX/2;sc
 
 
 #Bind those positions to the nd pad1 ${bottomleft}
-bind m:${hyper} chain ${bottomleft} | ${bottomleft-sm}
+# bind m:${hyper} chain ${bottomleft} | ${bottomleft-sm}
 bind ,:${hyper} push bottom bar-resize:screenSizeY/2
-bind .:${hyper} chain ${bottomright} | ${bottomright-sm}
+# bind .:${hyper} chain ${bottomright} | ${bottomright-sm}
 # bind j:${hyper} ${lefthalf}
 # bind k:${hyper} chain ${centered} | ${full}
 # bind l:${hyper} ${righthalf}
-bind u:${hyper} chain ${topleft} | ${topleft-sm}
+# bind u:${hyper} chain ${topleft} | ${topleft-sm}
 bind i:${hyper} push top bar-resize:screenSizeY/2
-bind o:${hyper} chain ${topright} | ${topright-sm}
+# bind o:${hyper} chain ${topright} | ${topright-sm}
 
 #Help me focus by only hiding everything but the window I'm currently working in
-bind 0:${hyper} hide all-but:current
-bind -:${hyper} hide all
+# bind 0:${hyper} hide all-but:current
+# bind -:${hyper} hide all
 
 # Throw a window around
 bind n:${hyper} throw next
