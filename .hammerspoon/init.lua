@@ -1,7 +1,9 @@
 -- Configuration File for hammerspoon
 -- A lot of this was swiped from wincent on GitHub
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/init.lua
-
+hs.logger.defaultLogLevel = "debug"
+local log = hs.logger.new('mymodule','debug')
+log.d("Foo")
 local hyper = {"ctrl", "alt", "cmd"}
 
 hs.grid.setGrid('12x12') -- allows us to place on quarters, thirds and halves
@@ -76,6 +78,12 @@ function chain(movements)
   end
 end
 
+--[[function hideAll()
+  log.d("Windows")
+  hs.fnutils.each(hs.window.visibleWindows(), function(window)
+    win = window.minimize()
+  end)
+end]]--
 
 
 hs.hotkey.bind(hyper,"j", function()
@@ -93,20 +101,38 @@ hs.hotkey.bind(hyper, "k", chain({
 hs.hotkey.bind(hyper, "j", chain({
   grid.leftHalf,
   grid.leftTwoThirds,
-  grid.leftThird
+  grid.leftThird,
 }))
 
 hs.hotkey.bind(hyper, "l", chain({
   grid.rightHalf,
   grid.rightTwoThirds,
-  grid.rightThird
+  grid.rightThird,
 }))
 
---hs.hotkey.bind(hyper, "j", left)
+hs.hotkey.bind(hyper,"o", chain({
+  grid.topRight,
+}))
+
+hs.hotkey.bind(hyper,".", chain({
+  grid.bottomRight,
+}))
+
+
+hs.hotkey.bind(hyper,"u", chain({
+  grid.topLeft,
+}))
+
+hs.hotkey.bind(hyper,"m", chain({
+  grid.bottomLeft,
+}))
+
 -- lock the screen ala Windows NT
 hs.hotkey.bind(hyper,"delete", function()
   hs.caffeinate.lockScreen()
   hs.alert.show("startScreensaver")
 end)
+
+--hs.hotkey.bind(hyper,"0", hideAll)
 
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
