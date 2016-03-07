@@ -66,9 +66,6 @@ function chain(movements)
     then
       sequenceNumber = 1
       lastSeenChain = movements
-    elseif (sequenceNumber == 1) then
-      -- At end of chain, restart chain on next screen.
-      screen = screen:next()
     end
     lastSeenAt = now
     lastSeenWindow = id
@@ -77,20 +74,6 @@ function chain(movements)
     sequenceNumber = sequenceNumber % cycleLength + 1
   end
 end
-
---[[function hideAll()
-  log.d("Windows")
-  hs.fnutils.each(hs.window.visibleWindows(), function(window)
-    win = window.minimize()
-  end)
-end]]--
-
-
-hs.hotkey.bind(hyper,"j", function()
-  local win = hs.window.focusedWindow()
-  local screen = win:screen()
-  hs.grid.set(win, grid.fullScreen, screen)
-end)
 
 hs.hotkey.bind(hyper, "k", chain({
   grid.fullScreen,
@@ -127,6 +110,30 @@ hs.hotkey.bind(hyper,"m", chain({
   grid.bottomLeft,
 }))
 
+-- throw screens around
+function send_window_prev_monitor()
+  hs.alert.show("Prev Monitor")
+  local win = hs.window.focusedWindow()
+  local nextScreen = win:screen():previous()
+  win:moveToScreen(nextScreen)
+end
+
+function send_window_next_monitor()
+  hs.alert.show("Next Monitor")
+  local win = hs.window.focusedWindow()
+  local nextScreen = win:screen():next()
+  win:moveToScreen(nextScreen)
+end
+
+hs.hotkey.bind(hyper,"right", function()
+  send_window_prev_monitor()
+end)
+
+hs.hotkey.bind(hyper,"left", function()
+  send_window_next_monitor()
+end)
+
+
 -- lock the screen ala Windows NT
 hs.hotkey.bind(hyper,"delete", function()
   hs.caffeinate.lockScreen()
@@ -134,5 +141,6 @@ hs.hotkey.bind(hyper,"delete", function()
 end)
 
 --hs.hotkey.bind(hyper,"0", hideAll)
+-- arrangeOmnifocus()
 
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
