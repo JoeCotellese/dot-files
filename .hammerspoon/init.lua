@@ -1,10 +1,14 @@
 -- Configuration File for hammerspoon
 -- A lot of this was swiped from wincent on GitHub
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/init.lua
+
 hs.logger.defaultLogLevel = "debug"
 local log = hs.logger.new('mymodule','debug')
-log.d("Foo")
 local hyper = {"ctrl", "alt", "cmd"}
+
+-- Load External Config Files
+require('battery')
+
 
 hs.grid.setGrid('12x12') -- allows us to place on quarters, thirds and halves
 hs.window.animationDuration = 0 -- disable animations
@@ -142,22 +146,5 @@ end)
 
 --hs.hotkey.bind(hyper,"0", hideAll)
 -- arrangeOmnifocus()
-
---
--- Create a watcher that runs a function based on changes to
--- battery state.
---
-local PreviousPowerSource = hs.battery.powerSource()
-hs.battery.watcher.new(function()
-  CurrentPowerSource = hs.battery.powerSource()
-  if CurrentPowerSource ~= PreviousPowerSource then
-    if CurrentPowerSource == "Battery Power" then
-      hs.alert.show("Ejecting Disks")
-      hs.execute("diskutil unmount '/Volumes/Backup_joec'")
-    end
-    PreviousPowerSource = CurrentPowerSource
-  end
-
-end):start()
 
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
