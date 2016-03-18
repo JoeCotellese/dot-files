@@ -58,24 +58,27 @@ function chain(movements)
   local sequenceNumber = 1
 
   return function()
-    local win = hs.window.frontmostWindow()
-    local id = win:id()
-    local now = hs.timer.secondsSinceEpoch()
-    local screen = win:screen()
-
-    if
-      lastSeenChain ~= movements or
-      lastSeenAt < now - chainResetInterval or
-      lastSeenWindow ~= id
+    if hs.window.focusedWindow()
     then
-      sequenceNumber = 1
-      lastSeenChain = movements
-    end
-    lastSeenAt = now
-    lastSeenWindow = id
+      local win = hs.window.frontmostWindow()
+      local id = win:id()
+      local now = hs.timer.secondsSinceEpoch()
+      local screen = win:screen()
 
-    hs.grid.set(win, movements[sequenceNumber], screen)
-    sequenceNumber = sequenceNumber % cycleLength + 1
+      if
+        lastSeenChain ~= movements or
+        lastSeenAt < now - chainResetInterval or
+        lastSeenWindow ~= id
+      then
+        sequenceNumber = 1
+        lastSeenChain = movements
+      end
+      lastSeenAt = now
+      lastSeenWindow = id
+
+      hs.grid.set(win, movements[sequenceNumber], screen)
+      sequenceNumber = sequenceNumber % cycleLength + 1
+    end
   end
 end
 
