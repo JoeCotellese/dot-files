@@ -7,9 +7,15 @@ hs.battery.watcher.new(function()
   CurrentPowerSource = hs.battery.powerSource()
   if CurrentPowerSource ~= PreviousPowerSource then
     if CurrentPowerSource == "Battery Power" then
-      hs.alert.show("Ejecting Disks")
-      hs.execute("diskutil unmount '/Volumes/Backup_joec'")
+      -- do some cleanup when the battery is unplugged
+      shutdownTimeMachine()
     end
     PreviousPowerSource = CurrentPowerSource
   end
 end):start()
+
+function shutdownTimeMachine()
+  hs.alert.show("Stopping Time Machine")
+  hs.execute("tmutil stopbackup")
+  hs.execute("diskutil unmount '/Volumes/Backup_joec'")
+end
